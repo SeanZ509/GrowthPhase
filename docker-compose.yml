@@ -1,0 +1,25 @@
+services:
+  airflow:
+    image: apache/airflow:2.9.3
+    container_name: airflow-gpi
+    env_file:
+      - setup.env
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+      AIRFLOW_DATA_DIR: /opt/airflow/data
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
+      - ./secrets:/opt/airflow/secrets:ro
+    ports:
+      - "8080:8080"
+    command: >
+      bash -lc "
+      pip install kaggle pandas &&
+      airflow db init &&
+      airflow users create
+        -r Admin -u admin -p admin
+        -e admin@example.com -f Admin -l User &&
+      airflow webserver & airflow scheduler
+      "
+    restart: unless-stopped
