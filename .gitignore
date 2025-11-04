@@ -1,6 +1,8 @@
 ﻿# ignore data artifacts
 data/*
+Data/*
 !data/.gitkeep
+!Data/.gitkeep
 
 # ignore large file types anywhere
 *.csv
