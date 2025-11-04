@@ -1,0 +1,8 @@
+﻿# ignore data artifacts
+data/*
+!data/.gitkeep
+
+# ignore large file types anywhere
+*.csv
+*.zip
+*.parquet
