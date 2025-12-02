@@ -79,3 +79,5 @@ with DAG(
     )
 
     make_dirs >> download_from_kaggle >> unzip >> clean_sample
+    
+    ## Im a little cnfused on what to do next
