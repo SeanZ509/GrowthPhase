@@ -26,7 +26,6 @@ def unzip_file():
             f_out.write(f_in.read())
 
 def quick_clean_sample():
-    # Read a chunk so this runs fast
     df_iter = pd.read_csv(RAW_CSV, on_bad_lines="skip", low_memory=False, chunksize=200_000)
     df = next(df_iter)
     df.columns = [c.strip().lower().replace(" ", "_") for c in df.columns]
@@ -43,7 +42,7 @@ default_args = {"owner": "airflow", "retries": 1, "retry_delay": timedelta(minut
 with DAG(
     dag_id="growthphase_ingest_etl",
     start_date=datetime(2025, 11, 1),
-    schedule_interval="@once",  # run once for dev
+    schedule_interval="@once", 
     catchup=False,
     default_args=default_args,
     tags=["growth","kaggle","etl"],
