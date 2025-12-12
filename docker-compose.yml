@@ -23,3 +23,25 @@ services:
       airflow webserver & airflow scheduler
       "
     restart: unless-stopped
+  postgres:
+    image: postgres:16
+    container_name: gpi-postgres
+    environment:
+      POSTGRES_USER: gpi
+      POSTGRES_PASSWORD: gpi
+      POSTGRES_DB: gpi
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4:8
+    container_name: gpi-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    restart: unless-stopped
